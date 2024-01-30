@@ -19,7 +19,7 @@ from logging import Logger, LogRecord
 from types import TracebackType
 from typing import Mapping, TypeAlias
 
-from fryday_lib.utils.strings import CustomJSONEncoder
+from src.pyasynclogger.json_tools import CustomJSONEncoder
 
 _ArgsType: TypeAlias = tuple[object, ...] | Mapping[str, object]
 _SysExcInfoType: TypeAlias = (
@@ -400,6 +400,3 @@ class AsyncLogger(Logger):
 def getLogger(name, level=logging.NOTSET, context=None):  #  pylint: disable=invalid-name
     """Gets or creates an AsyncLogger instance."""
     return AsyncLogger.get_logger(name, level, context)
-
-
-
