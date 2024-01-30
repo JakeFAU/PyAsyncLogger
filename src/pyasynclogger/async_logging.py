@@ -137,7 +137,7 @@ class AsyncLogger(Logger):
             func (str | None): The function name where the logging call was made.
             extra (Mapping[str, object] | None): Additional context added to the log record.
                                                  This must be JSON serializable using the
-                                                 fryday_lib.utils.strings.CustomJSONEncoder.
+                                                 json_tools.CustomJSONEncoder
             sinfo (str | None): Stack information from the bottom of the call stack.
 
         Returns:
