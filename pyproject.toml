@@ -6,7 +6,11 @@ build-backend = "setuptools.build_meta"
 name = "PyAsyncLogger"
 version = "0.1.0"
 requires-python = ">=3.10"
-dependencies = ["aiohttp"]
+dependencies = [
+    "aiohttp",
+    'numpy; python_version >= "3.10"',
+    'pandas; python_version >= "3.10"',
+]
 
 [project.optional-dependencies]
 gcp = ["google-cloud-logging"]
