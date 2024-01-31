@@ -21,7 +21,6 @@ test = [
     "pytest-cov",
     "pytest-mock",
     "pytest-asyncio",
-    "coverage",
     "ruff",
     "sphinx",
     "tox",
