@@ -63,6 +63,14 @@ By default, PyAsyncLogger uses a stream handler (stdout/stderr). To use a specif
    export ASYNC_LOGGING_HANDLER=azure
    ```
 
+    Also Microsoft, being Microsoft requires you to set two more environment variables.
+    Don't blame me, talk to Staya
+
+    ```bash
+        export LOGS_DCR_RULE_ID = <Your Azure Rule ID>
+        export LOGS_DCR_STREAM_NAME = <Your Azure Stream Name>
+    ```
+
 2. Configure Azure credentials and settings.
 
 3. Implement logging in your code.

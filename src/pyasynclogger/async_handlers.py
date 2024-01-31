@@ -1,4 +1,4 @@
-"""Asynchronous logging handlers for Google Cloud Logging, Azure Monitor, and AWS CloudWatch Logs."""
+"""Asynchronous logging handlers for Google Cloud Logging, Azure Monitor, and AWS CloudWatch Logs"""
 import asyncio
 import logging
 import os
