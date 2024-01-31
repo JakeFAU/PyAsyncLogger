@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [310, 311]  # Adjust Python versions as needed
+        python-version: [3.1, 3.11]  # Adjust Python versions as needed
 
     steps:
     - uses: actions/checkout@v3
