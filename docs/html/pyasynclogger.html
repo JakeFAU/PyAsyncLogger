@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pyasynclogger package &#8212; PyAsyncLogger  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="pyasynclogger" href="modules.html" />
+
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+
+
+
+
+  </head><body>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+          <div class="body" role="main">
+
+  <section id="pyasynclogger-package">
+<h1>pyasynclogger package<a class="headerlink" href="#pyasynclogger-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-pyasynclogger.async_handlers">
+<span id="pyasynclogger-async-handlers-module"></span><h2>pyasynclogger.async_handlers module<a class="headerlink" href="#module-pyasynclogger.async_handlers" title="Link to this heading">¶</a></h2>
+<p>Asynchronous logging handlers for Google Cloud Logging, Azure Monitor, and AWS CloudWatch Logs.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncAzureMonitorLoggingHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyasynclogger.async_handlers.</span></span><span class="sig-name descname"><span class="pre">AsyncAzureMonitorLoggingHandler</span></span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncAzureMonitorLoggingHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyasynclogger.async_handlers.AsyncLoggingHandler" title="pyasynclogger.async_handlers.AsyncLoggingHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncLoggingHandler</span></code></a></p>
+<p>Asynchronous logging handler for Azure Monitor Logging.</p>
+<p>This handler asynchronously sends logging records to Azure Monitor.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>client (LogsIngestionClient): The Azure Monitor LogsIngestion client.
+rule_id (str): The rule ID for data collection.
+stream_name (str): The stream name for data collection.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncAzureMonitorLoggingHandler.async_emit">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">async_emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogRecord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncAzureMonitorLoggingHandler.async_emit" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously emit the logging record to Azure Monitor.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (logging.LogRecord): The log record to be emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncCloudWatchLoggingHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyasynclogger.async_handlers.</span></span><span class="sig-name descname"><span class="pre">AsyncCloudWatchLoggingHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_group_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncCloudWatchLoggingHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyasynclogger.async_handlers.AsyncLoggingHandler" title="pyasynclogger.async_handlers.AsyncLoggingHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncLoggingHandler</span></code></a></p>
+<p>Asynchronous logging handler for AWS CloudWatch Logging.</p>
+<p>This handler asynchronously sends logging records to AWS CloudWatch.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>client: The boto3 CloudWatch Logs client.
+log_group_name (str): The name of the CloudWatch Logs log group.
+stream_name (str): The name of the CloudWatch Logs stream.
+sequence_token (str): The sequence token for the log stream.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncCloudWatchLoggingHandler.async_emit">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">async_emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogRecord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncCloudWatchLoggingHandler.async_emit" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously emit the logging record to AWS CloudWatch Logs.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (logging.LogRecord): The log record to be emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncGoogleCloudLoggingHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyasynclogger.async_handlers.</span></span><span class="sig-name descname"><span class="pre">AsyncGoogleCloudLoggingHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gcp_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Client</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncGoogleCloudLoggingHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyasynclogger.async_handlers.AsyncLoggingHandler" title="pyasynclogger.async_handlers.AsyncLoggingHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncLoggingHandler</span></code></a></p>
+<p>Asynchronous logging handler for Google Cloud Logging.</p>
+<p>This handler asynchronously sends logging records to Google Cloud Logging.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>client (google.cloud.logging.Client): The Google Cloud Logging client.
+worker (_Worker): The worker instance used to enqueue log messages.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncGoogleCloudLoggingHandler.async_emit">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">async_emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogRecord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncGoogleCloudLoggingHandler.async_emit" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously emit the logging record to Google Cloud Logging.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (logging.LogRecord): The log record to be emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncLoggingHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyasynclogger.async_handlers.</span></span><span class="sig-name descname"><span class="pre">AsyncLoggingHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncLoggingHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>An abstract base class for asynchronous logging handlers.</p>
+<p>This class defines the basic structure for asynchronous logging handlers
+and enforces the implementation of the async_emit method in derived classes.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncLoggingHandler.async_emit">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">async_emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogRecord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncLoggingHandler.async_emit" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously emit a logging record.</p>
+<p>This method should be implemented by subclasses to define asynchronous
+logging behavior.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (logging.LogRecord): The log record to be emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.AsyncLoggingHandler.emit">
+<span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogRecord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.AsyncLoggingHandler.emit" title="Link to this definition">¶</a></dt>
+<dd><p>Emit a logging record.</p>
+<p>Overrides the emit method of logging.Handler to schedule the async_emit
+method as an asyncio task, enabling asynchronous logging.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (logging.LogRecord): The log record to be emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.StreamLoggingHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyasynclogger.async_handlers.</span></span><span class="sig-name descname"><span class="pre">StreamLoggingHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream:</span> <span class="pre">~typing.TextIO</span> <span class="pre">=</span> <span class="pre">&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stdout&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminator='\n'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.StreamLoggingHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyasynclogger.async_handlers.AsyncLoggingHandler" title="pyasynclogger.async_handlers.AsyncLoggingHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncLoggingHandler</span></code></a></p>
+<p>A handler that writes to stdout or stderr.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.StreamLoggingHandler.async_emit">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">async_emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogRecord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_handlers.StreamLoggingHandler.async_emit" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously emit a logging record.</p>
+<p>This method should be implemented by subclasses to define asynchronous
+logging behavior.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (logging.LogRecord): The log record to be emitted.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyasynclogger.async_handlers.StreamLoggingHandler.terminator">
+<span class="sig-name descname"><span class="pre">terminator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#pyasynclogger.async_handlers.StreamLoggingHandler.terminator" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pyasynclogger.async_logging">
+<span id="pyasynclogger-async-logging-module"></span><h2>pyasynclogger.async_logging module<a class="headerlink" href="#module-pyasynclogger.async_logging" title="Link to this heading">¶</a></h2>
+<p>Async Logging Module</p>
+<p>This module provides an asynchronous logging system, allowing logs to be handled
+without blocking the main execution flow in asynchronous applications.</p>
+<dl class="simple">
+<dt>Classes:</dt><dd><p>AsyncLogHandler: A handler for asynchronous logging.
+AsyncLogger: A logger class that supports asynchronous logging operations.</p>
+</dd>
+<dt>Functions:</dt><dd><p>main: An example usage of the AsyncLogger and AsyncLogHandler.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyasynclogger.async_logging.</span></span><span class="sig-name descname"><span class="pre">AsyncLogHandler</span></span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogHandler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code></p>
+<p>A handler class for asynchronous logging.</p>
+<p>This handler stores log records in a deque and uses an asynchronous loop to
+process them, allowing for non-blocking logging operations.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>buffer (deque): A deque used to store log records.
+loop (asyncio.AbstractEventLoop): The event loop used for asynchronous operations.</p>
+</dd>
+<dt>Methods:</dt><dd><p>emit(record): Stores a log record in the buffer.
+flush_logs(): Asynchronously flushes logs from the buffer.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogHandler.emit">
+<span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogHandler.emit" title="Link to this definition">¶</a></dt>
+<dd><p>Stores a log record in the buffer.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (LogRecord): The log record to be stored.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogHandler.flush_logs">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flush_logs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogHandler.flush_logs" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously flushes logs from the buffer.</p>
+<p>This method continuously processes and outputs log records from the buffer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyasynclogger.async_logging.</span></span><span class="sig-name descname"><span class="pre">AsyncLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></p>
+<p>A logger class that supports asynchronous logging operations.</p>
+<p>This logger extends the standard Logger class, adding support for asynchronous
+log handling. It allows binding additional context to each log message.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>context (dict): A dictionary of context information for log messages.</p>
+</dd>
+<dt>Methods:</dt><dd><p><cite>bind(**new_context)</cite>: Binds new context information to the logger.
+makeRecord(…): Creates a log record with the additional context.
+<cite>_log_async(level, msg, *args, **kwargs)</cite>: Asynchronously logs a message.
+handle(record): Asynchronously handles a log record.
+debug, info, warning, error, critical: Asynchronous logging methods..
+get_logger(name, level, context): Class method to get or create an AsyncLogger instance.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">new_context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.bind" title="Link to this definition">¶</a></dt>
+<dd><p>Binds new context information to the logger.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><cite>**new_context</cite>: Arbitrary keyword arguments representing new context information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.critical">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">critical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.critical" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously logs a critical message.</p>
+<p>This method logs a message with a severity level of ‘CRITICAL’. It is an
+asynchronous version of the standard logging library’s critical method, ensuring
+that logging does not block the main execution flow in asynchronous applications.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>msg (str): The message to be logged. This can be a format string, which will</dt><dd><p>be merged with <cite>args</cite> using the string formatting operator.</p>
+</dd>
+<dt><cite>*args</cite>: Variable length argument list. These arguments are merged into <cite>msg</cite></dt><dd><p>using the string formatting operator, allowing dynamic message formatting.</p>
+</dd>
+<dt><cite>**kwargs</cite>: Arbitrary keyword arguments. These can include additional context or</dt><dd><p>parameters specific to the logging handler’s implementation. For
+example, <cite>exc_info</cite> to include exception information, <cite>stack_info</cite>
+to include stack information, or any custom additional information
+that should be included in the log record.</p>
+</dd>
+</dl>
+</dd>
+<dt>Example:</dt><dd><p>await logger.critical(“This is a critical message with value: %s”, value)</p>
+</dd>
+<dt>Note:</dt><dd><p>The actual output format and destination of the log message depend on the
+configuration of the logger’s handlers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.debug">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.debug" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously logs a debug message.</p>
+<p>This method logs a message with a severity level of ‘DEBUG’. It is an
+asynchronous version of the standard logging library’s debug method, ensuring
+that logging does not block the main execution flow in asynchronous applications.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>msg (str): The message to be logged. This can be a format string, which will</dt><dd><p>be merged with <cite>args</cite> using the string formatting operator.</p>
+</dd>
+<dt><cite>*args</cite>: Variable length argument list. These arguments are merged into <cite>msg</cite></dt><dd><p>using the string formatting operator, allowing dynamic message formatting.</p>
+</dd>
+<dt><cite>**kwargs</cite>: Arbitrary keyword arguments. These can include additional context or</dt><dd><p>parameters specific to the logging handler’s implementation. For
+example, <cite>exc_info</cite> to include exception information, <cite>stack_info</cite>
+to include stack information, or any custom additional information
+that should be included in the log record.</p>
+</dd>
+</dl>
+</dd>
+<dt>Example:</dt><dd><p>await logger.debug(“This is a debug message with value: %s”, value)</p>
+</dd>
+<dt>Note:</dt><dd><p>The actual output format and destination of the log message depend on the
+configuration of the logger’s handlers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.error">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.error" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously logs a error message.</p>
+<p>This method logs a message with a severity level of ‘ERROR’. It is an
+asynchronous version of the standard logging library’s error method, ensuring
+that logging does not block the main execution flow in asynchronous applications.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>msg (str): The message to be logged. This can be a format string, which will</dt><dd><p>be merged with <cite>args</cite> using the string formatting operator.</p>
+</dd>
+<dt><cite>*args</cite>: Variable length argument list. These arguments are merged into <cite>msg</cite></dt><dd><p>using the string formatting operator, allowing dynamic message formatting.</p>
+</dd>
+<dt><cite>**kwargs</cite>: Arbitrary keyword arguments. These can include additional context or</dt><dd><p>parameters specific to the logging handler’s implementation. For
+example, <cite>exc_info</cite> to include exception information, <cite>stack_info</cite>
+to include stack information, or any custom additional information
+that should be included in the log record.</p>
+</dd>
+</dl>
+</dd>
+<dt>Example:</dt><dd><p>await logger.error(“This is an error message with value: %s”, value)</p>
+</dd>
+<dt>Note:</dt><dd><p>The actual output format and destination of the log message depend on the
+configuration of the logger’s handlers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.get_logger">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.get_logger" title="Link to this definition">¶</a></dt>
+<dd><p>Gets or creates an AsyncLogger instance.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): The name of the logger.
+level (int): The logging level.
+context (dict, optional): Additional context for log messages.</p>
+</dd>
+<dt>Returns:</dt><dd><p>AsyncLogger: An instance of AsyncLogger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.handle">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.handle" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously handles a log record.</p>
+<p>This method asynchronously dispatches the log record to all the handlers
+associated with this logger.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>record (LogRecord): The log record to be handled.</p>
+</dd>
+<dt>Note:</dt><dd><p>This method overrides the standard logging.Logger’s handle method
+to introduce asynchronous handling.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.info">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.info" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously logs a info message.</p>
+<p>This method logs a message with a severity level of ‘INFO’. It is an
+asynchronous version of the standard logging library’s info method, ensuring
+that logging does not block the main execution flow in asynchronous applications.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>msg (str): The message to be logged. This can be a format string, which will</dt><dd><p>be merged with <cite>args</cite> using the string formatting operator.</p>
+</dd>
+<dt><cite>*args</cite>: Variable length argument list. These arguments are merged into <cite>msg</cite></dt><dd><p>using the string formatting operator, allowing dynamic message formatting.</p>
+</dd>
+<dt><cite>**kwargs</cite>: Arbitrary keyword arguments. These can include additional context or</dt><dd><p>parameters specific to the logging handler’s implementation. For
+example, <cite>exc_info</cite> to include exception information, <cite>stack_info</cite>
+to include stack information, or any custom additional information
+that should be included in the log record.</p>
+</dd>
+</dl>
+</dd>
+<dt>Example:</dt><dd><p>await logger.info(“This is a info message with value: %s”, value)</p>
+</dd>
+<dt>Note:</dt><dd><p>The actual output format and destination of the log message depend on the
+configuration of the logger’s handlers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.makeRecord">
+<span class="sig-name descname"><span class="pre">makeRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lno</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">BaseException</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">TracebackType</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sinfo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">LogRecord</span></span></span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.makeRecord" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a log record with additional context.</p>
+<p>This method extends the standard logging.Logger’s makeRecord method by
+adding the logger’s context to the log record.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): The name of the logger.
+level (int): The numeric level of the logging event (e.g., logging.DEBUG).
+fn (str): The filename where the logging call was made.
+lno (int): The line number where the logging call was made.
+msg (object): The event description message, possibly a format string.
+args (_ArgsType): The arguments to merge into msg if it’s a format string.
+exc_info (_SysExcInfoType | None): Exception tuple (type, value, traceback) or None.
+func (str | None): The function name where the logging call was made.
+extra (Mapping[str, object] | None): Additional context added to the log record.
+This must be JSON serializable using the
+json_tools.CustomJSONEncoder
+sinfo (str | None): Stack information from the bottom of the call stack.</p>
+</dd>
+<dt>Returns:</dt><dd><p>LogRecord: A LogRecord instance representing the logging event.</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If values in ‘extra’ are not JSON serializable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.AsyncLogger.warning">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.AsyncLogger.warning" title="Link to this definition">¶</a></dt>
+<dd><p>Asynchronously logs a warning message.</p>
+<p>This method logs a message with a severity level of ‘WARNING’. It is an
+asynchronous version of the standard logging library’s warning method, ensuring
+that logging does not block the main execution flow in asynchronous applications.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>msg (str): The message to be logged. This can be a format string, which will</dt><dd><p>be merged with <cite>args</cite> using the string formatting operator.</p>
+</dd>
+<dt><cite>*args</cite>: Variable length argument list. These arguments are merged into <cite>msg</cite></dt><dd><p>using the string formatting operator, allowing dynamic message formatting.</p>
+</dd>
+<dt><cite>**kwargs</cite>: Arbitrary keyword arguments. These can include additional context or</dt><dd><p>parameters specific to the logging handler’s implementation. For
+example, <cite>exc_info</cite> to include exception information, <cite>stack_info</cite>
+to include stack information, or any custom additional information
+that should be included in the log record.</p>
+</dd>
+</dl>
+</dd>
+<dt>Example:</dt><dd><p>await logger.warning(“This is a warning message with value: %s”, value)</p>
+</dd>
+<dt>Note:</dt><dd><p>The actual output format and destination of the log message depend on the
+configuration of the logger’s handlers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyasynclogger.async_logging.getLogger">
+<span class="sig-prename descclassname"><span class="pre">pyasynclogger.async_logging.</span></span><span class="sig-name descname"><span class="pre">getLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.async_logging.getLogger" title="Link to this definition">¶</a></dt>
+<dd><p>Gets or creates an AsyncLogger instance.</p>
+</dd></dl>
+
+</section>
+<section id="module-pyasynclogger.json_tools">
+<span id="pyasynclogger-json-tools-module"></span><h2>pyasynclogger.json_tools module<a class="headerlink" href="#module-pyasynclogger.json_tools" title="Link to this heading">¶</a></h2>
+<p>JSON Tools.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyasynclogger.json_tools.CustomJSONEncoder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyasynclogger.json_tools.</span></span><span class="sig-name descname"><span class="pre">CustomJSONEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skipkeys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ensure_ascii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_circular</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.json_tools.CustomJSONEncoder" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JSONEncoder</span></code></p>
+<p>Custom JSON Encoder.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyasynclogger.json_tools.CustomJSONEncoder.default">
+<span class="sig-name descname"><span class="pre">default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.json_tools.CustomJSONEncoder.default" title="Link to this definition">¶</a></dt>
+<dd><p>Default.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pyasynclogger">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyasynclogger" title="Link to this heading">¶</a></h2>
+<p>This is used to set a handler to the root logger in the init</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyasynclogger.get_logging_handler">
+<span class="sig-prename descclassname"><span class="pre">pyasynclogger.</span></span><span class="sig-name descname"><span class="pre">get_logging_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.get_logging_handler" title="Link to this definition">¶</a></dt>
+<dd><p>Get the logging handler based on the environment variable ASYNC_LOGGING_HANDLER.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyasynclogger.setup_logging">
+<span class="sig-prename descclassname"><span class="pre">pyasynclogger.</span></span><span class="sig-name descname"><span class="pre">setup_logging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyasynclogger.setup_logging" title="Link to this definition">¶</a></dt>
+<dd><p>Set up the logging handler for the root logger.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PyAsyncLogger</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyasynclogger</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyasynclogger package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pyasynclogger package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyasynclogger.async_handlers">pyasynclogger.async_handlers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyasynclogger.async_logging">pyasynclogger.async_logging module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyasynclogger.json_tools">pyasynclogger.json_tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyasynclogger">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">pyasynclogger</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">pyasynclogger</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Jacob Bourne.
+
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+
+      |
+      <a href="_sources/pyasynclogger.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+
+
+
+  </body>
+</html>

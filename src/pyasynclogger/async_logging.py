@@ -1,4 +1,5 @@
-"""Async Logging Module
+"""
+Async Logging Module
 
 This module provides an asynchronous logging system, allowing logs to be handled
 without blocking the main execution flow in asynchronous applications.
@@ -28,7 +29,8 @@ _SysExcInfoType: TypeAlias = (
 
 
 class AsyncLogHandler(logging.Handler):
-    """A handler class for asynchronous logging.
+    """
+    A handler class for asynchronous logging.
 
     This handler stores log records in a deque and uses an asynchronous loop to
     process them, allowing for non-blocking logging operations.
@@ -69,7 +71,8 @@ class AsyncLogHandler(logging.Handler):
 
 
 class AsyncLogger(Logger):
-    """A logger class that supports asynchronous logging operations.
+    """
+    A logger class that supports asynchronous logging operations.
 
     This logger extends the standard Logger class, adding support for asynchronous
     log handling. It allows binding additional context to each log message.
@@ -78,9 +81,9 @@ class AsyncLogger(Logger):
         context (dict): A dictionary of context information for log messages.
 
     Methods:
-        bind(**new_context): Binds new context information to the logger.
+        `bind(**new_context)`: Binds new context information to the logger.
         makeRecord(...): Creates a log record with the additional context.
-        _log_async(level, msg, *args, **kwargs): Asynchronously logs a message.
+        `_log_async(level, msg, *args, **kwargs)`: Asynchronously logs a message.
         handle(record): Asynchronously handles a log record.
         debug, info, warning, error, critical: Asynchronous logging methods..
         get_logger(name, level, context): Class method to get or create an AsyncLogger instance.
@@ -103,7 +106,7 @@ class AsyncLogger(Logger):
         """Binds new context information to the logger.
 
         Args:
-            **new_context: Arbitrary keyword arguments representing new context information.
+            `**new_context`: Arbitrary keyword arguments representing new context information.
         """
         self.context.update(new_context)
 
@@ -120,7 +123,8 @@ class AsyncLogger(Logger):
         extra: Mapping[str, object] | None = None,
         sinfo: str | None = None,
     ) -> LogRecord:
-        """Creates a log record with additional context.
+        """
+        Creates a log record with additional context.
 
         This method extends the standard logging.Logger's makeRecord method by
         adding the logger's context to the log record.
@@ -135,8 +139,8 @@ class AsyncLogger(Logger):
             exc_info (_SysExcInfoType | None): Exception tuple (type, value, traceback) or None.
             func (str | None): The function name where the logging call was made.
             extra (Mapping[str, object] | None): Additional context added to the log record.
-                                                 This must be JSON serializable using the
-                                                 json_tools.CustomJSONEncoder
+            This must be JSON serializable using the
+            json_tools.CustomJSONEncoder
             sinfo (str | None): Stack information from the bottom of the call stack.
 
         Returns:
@@ -168,7 +172,8 @@ class AsyncLogger(Logger):
         )
 
     async def _log_async(self, level, msg, *args, **kwargs):
-        """Asynchronously logs a message at a specified level.
+        """
+        Asynchronously logs a message at a specified level.
 
         This internal method creates a log record and passes it to the handler
         if the logger is enabled for the specified severity level.
@@ -176,8 +181,8 @@ class AsyncLogger(Logger):
         Args:
             level (int): The numeric level of the logging event (e.g., logging.INFO).
             msg (str): The event description message, possibly a format string.
-            *args: Arguments to merge into msg if it's a format string.
-            **kwargs: Arbitrary keyword arguments. Commonly used keywords include:
+            `*args`: Arguments to merge into msg if it's a format string.
+            `**kwargs`: Arbitrary keyword arguments. Commonly used keywords include:
                 - fn (str): Filename where the logging call was made.
                 - lno (int): Line number where the logging call was made.
                 - exc_info (_SysExcInfoType | None): Exception info tuple or None.
@@ -203,7 +208,8 @@ class AsyncLogger(Logger):
             await self.handle(record)
 
     async def handle(self, record):  #  pylint: disable=invalid-overridden-method
-        """Asynchronously handles a log record.
+        """
+        Asynchronously handles a log record.
 
         This method asynchronously dispatches the log record to all the handlers
         associated with this logger.
@@ -220,7 +226,8 @@ class AsyncLogger(Logger):
 
     # Async versions of standard logging methods
     async def debug(self, msg, *args, **kwargs):  #  pylint: disable=invalid-overridden-method
-        """Asynchronously logs a debug message.
+        """
+        Asynchronously logs a debug message.
 
         This method logs a message with a severity level of 'DEBUG'. It is an
         asynchronous version of the standard logging library's debug method, ensuring
@@ -229,9 +236,9 @@ class AsyncLogger(Logger):
         Args:
             msg (str): The message to be logged. This can be a format string, which will
                     be merged with `args` using the string formatting operator.
-            *args: Variable length argument list. These arguments are merged into `msg`
+            `*args`: Variable length argument list. These arguments are merged into `msg`
                 using the string formatting operator, allowing dynamic message formatting.
-            **kwargs: Arbitrary keyword arguments. These can include additional context or
+            `**kwargs`: Arbitrary keyword arguments. These can include additional context or
                     parameters specific to the logging handler's implementation. For
                     example, `exc_info` to include exception information, `stack_info`
                     to include stack information, or any custom additional information
@@ -252,7 +259,8 @@ class AsyncLogger(Logger):
             print("DEBUG: Message that failed to log:\n%s", msg, file=sys.stderr)
 
     async def info(self, msg, *args, **kwargs):  #  pylint: disable=invalid-overridden-method
-        """Asynchronously logs a info message.
+        """
+        Asynchronously logs a info message.
 
         This method logs a message with a severity level of 'INFO'. It is an
         asynchronous version of the standard logging library's info method, ensuring
@@ -261,9 +269,9 @@ class AsyncLogger(Logger):
         Args:
             msg (str): The message to be logged. This can be a format string, which will
                     be merged with `args` using the string formatting operator.
-            *args: Variable length argument list. These arguments are merged into `msg`
+            `*args`: Variable length argument list. These arguments are merged into `msg`
                 using the string formatting operator, allowing dynamic message formatting.
-            **kwargs: Arbitrary keyword arguments. These can include additional context or
+            `**kwargs`: Arbitrary keyword arguments. These can include additional context or
                     parameters specific to the logging handler's implementation. For
                     example, `exc_info` to include exception information, `stack_info`
                     to include stack information, or any custom additional information
@@ -284,7 +292,8 @@ class AsyncLogger(Logger):
             print("INFO: Message that failed to log:\n%s", msg, file=sys.stderr)
 
     async def warning(self, msg, *args, **kwargs):  #  pylint: disable=invalid-overridden-method
-        """Asynchronously logs a warning message.
+        """
+        Asynchronously logs a warning message.
 
         This method logs a message with a severity level of 'WARNING'. It is an
         asynchronous version of the standard logging library's warning method, ensuring
@@ -293,9 +302,9 @@ class AsyncLogger(Logger):
         Args:
             msg (str): The message to be logged. This can be a format string, which will
                     be merged with `args` using the string formatting operator.
-            *args: Variable length argument list. These arguments are merged into `msg`
+            `*args`: Variable length argument list. These arguments are merged into `msg`
                 using the string formatting operator, allowing dynamic message formatting.
-            **kwargs: Arbitrary keyword arguments. These can include additional context or
+            `**kwargs`: Arbitrary keyword arguments. These can include additional context or
                     parameters specific to the logging handler's implementation. For
                     example, `exc_info` to include exception information, `stack_info`
                     to include stack information, or any custom additional information
@@ -316,7 +325,8 @@ class AsyncLogger(Logger):
             print("WARNING: Message that failed to log:\n%s", msg, file=sys.stderr)
 
     async def error(self, msg, *args, **kwargs):  #  pylint: disable=invalid-overridden-method
-        """Asynchronously logs a error message.
+        """
+        Asynchronously logs a error message.
 
         This method logs a message with a severity level of 'ERROR'. It is an
         asynchronous version of the standard logging library's error method, ensuring
@@ -325,9 +335,9 @@ class AsyncLogger(Logger):
         Args:
             msg (str): The message to be logged. This can be a format string, which will
                     be merged with `args` using the string formatting operator.
-            *args: Variable length argument list. These arguments are merged into `msg`
+            `*args`: Variable length argument list. These arguments are merged into `msg`
                 using the string formatting operator, allowing dynamic message formatting.
-            **kwargs: Arbitrary keyword arguments. These can include additional context or
+            `**kwargs`: Arbitrary keyword arguments. These can include additional context or
                     parameters specific to the logging handler's implementation. For
                     example, `exc_info` to include exception information, `stack_info`
                     to include stack information, or any custom additional information
@@ -348,7 +358,8 @@ class AsyncLogger(Logger):
             print("ERROR: Message that failed to log:\n%s", msg, file=sys.stderr)
 
     async def critical(self, msg, *args, **kwargs):  #  pylint: disable=invalid-overridden-method
-        """Asynchronously logs a critical message.
+        """
+        Asynchronously logs a critical message.
 
         This method logs a message with a severity level of 'CRITICAL'. It is an
         asynchronous version of the standard logging library's critical method, ensuring
@@ -357,9 +368,9 @@ class AsyncLogger(Logger):
         Args:
             msg (str): The message to be logged. This can be a format string, which will
                     be merged with `args` using the string formatting operator.
-            *args: Variable length argument list. These arguments are merged into `msg`
+            `*args`: Variable length argument list. These arguments are merged into `msg`
                 using the string formatting operator, allowing dynamic message formatting.
-            **kwargs: Arbitrary keyword arguments. These can include additional context or
+            `**kwargs`: Arbitrary keyword arguments. These can include additional context or
                     parameters specific to the logging handler's implementation. For
                     example, `exc_info` to include exception information, `stack_info`
                     to include stack information, or any custom additional information
@@ -381,7 +392,8 @@ class AsyncLogger(Logger):
 
     @classmethod
     def get_logger(cls, name, level=logging.NOTSET, context=None):  #  pylint: disable=invalid-name
-        """Gets or creates an AsyncLogger instance.
+        """
+        Gets or creates an AsyncLogger instance.
 
         Args:
             name (str): The name of the logger.
