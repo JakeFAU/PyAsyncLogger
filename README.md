@@ -2,12 +2,12 @@
 
 ## Overview
 
-This library provides asynchronous logging capabilities for Python applications, ensuring that logging operations don't block the main execution flow, making it ideal for asynchronous environments. It's designed as a drop-in replacement for the standard logging library, with a few key enhancements:
+PyAsyncLogger is an asynchronous logging library for Python, designed as a drop-in replacement for the standard logging library. It enhances logging in asynchronous environments by ensuring that logging operations don't block the main execution flow. Key features include:
 
-- **Asynchronous logging:** Logs messages asynchronously, preventing performance bottlenecks.
-- **Context binding:** Allows associating additional context with log messages, providing more comprehensive data for analysis.
-- **Customizable handlers:** Supports different output formats and destinations for logs, suiting various needs.
-- **Easy to use:** Designed for seamless integration into existing Python projects.
+- **Asynchronous logging:** Logs messages asynchronously to avoid performance bottlenecks.
+- **Context binding:** Enhances log messages with additional context for more comprehensive analysis.
+- **Customizable handlers:** Supports various output formats and destinations, including popular cloud services.
+- **Easy integration:** Designed for seamless integration into existing Python projects with minimal code changes.
 
 ## Installation
 
@@ -19,39 +19,53 @@ pip install pyasynclogger
 
 ## Basic Usage
 
-1. **Import the AsyncLogger class:**
+To use PyAsyncLogger, simply replace the standard logging import with PyAsyncLogger. The library automatically configures the appropriate logging handler based on the `ASYNC_LOGGING_HANDLER` environment variable.
 
 ```python
 import pyasynclogger as logging
-```
 
-2. **Create an AsyncLogger instance:**
-
-```python
-logger = logging.get_logger("my_logger")
-```
-
-3. **Use logging methods:**
-
-```python
+logger = logging.getLogger("my_logger")
 logger.info("This is an informational message")
 logger.warning("This is a warning message")
 ```
 
-4. **Use context binding:**
+By default, PyAsyncLogger uses a stream handler (stdout/stderr). To use a specific cloud provider's logging service, set the `ASYNC_LOGGING_HANDLER` environment variable to one of the following values: `gcp`, `aws`, `azure`. Configure the necessary credentials and settings as required by the respective cloud provider.
 
-```python
-logger.bind(user_id=123, session_id="abc123")
-logger.info("User 123 started a new session")
-```
+### Example: Using Google Cloud Logging
 
-## Additional Features
+1. Set the environment variable:
 
-- **Custom handlers:**
+   ```bash
+   export ASYNC_LOGGING_HANDLER=gcp
+   ```
 
-```python
-# TODO: Add examples of custom handlers
-```
+2. Ensure you have the necessary credentials configured for Google Cloud.
+
+3. Use the logger as usual in your code.
+
+### Example: Using AWS CloudWatch
+
+1. Set the environment variable:
+
+   ```bash
+   export ASYNC_LOGGING_HANDLER=aws
+   ```
+
+2. Configure your AWS credentials and settings.
+
+3. Use the logger in your application.
+
+### Example: Using Azure Monitor Logging
+
+1. Set the environment variable:
+
+   ```bash
+   export ASYNC_LOGGING_HANDLER=azure
+   ```
+
+2. Configure Azure credentials and settings.
+
+3. Implement logging in your code.
 
 ## Contributing
 
@@ -63,4 +77,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-For any questions or feedback, please reach out to [Jacob Bourne]([jacob.bourne@gmail.com]).
+For any questions or feedback, please reach out to [Jacob Bourne](mailto:jacob.bourne@gmail.com).
