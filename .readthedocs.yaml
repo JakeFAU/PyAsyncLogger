@@ -21,11 +21,10 @@ formats:
   - pdf
   - epub
 
-# Optionally set up additional build commands
 build:
   os: "ubuntu-20.04"
   tools:
     python: "3.11"
   commands:
     - pip install .[docs]
-    - make html
+    - sphinx-build -b html docs/ _build/html
