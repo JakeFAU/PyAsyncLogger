@@ -5,17 +5,27 @@
 # Required
 version: 2
 
-# Set the OS, Python version and other tools you might need
-build:
-  os: ubuntu-22.04
-  tools:
-    python: "3.11"
-
-
-# Build documentation in the "docs/" directory with Sphinx
+# Build documentation in the docs/ directory with Sphinx
 sphinx:
+  builder: html
   configuration: docs/conf.py
 
-# Optionally build your docs in additional formats such as PDF and ePub
+# Set the version of Python to 3.10 and use pyproject.toml for dependencies
+python:
+  install:
+    - method: pip
+      path: .
+
+# Optionally configure Read the Docs for additional formats
 formats:
-    - pdf
+  - pdf
+  - epub
+
+# Optionally set up additional build commands
+build:
+  os: "ubuntu-20.04"
+  tools:
+    python: "3.11"
+  commands:
+    - pip install .[docs]
+    - make html
