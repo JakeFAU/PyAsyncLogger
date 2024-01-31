@@ -19,7 +19,7 @@ from logging import Logger, LogRecord
 from types import TracebackType
 from typing import Mapping, TypeAlias
 
-from src.pyasynclogger.json_tools import CustomJSONEncoder
+from pyasynclogger.json_tools import CustomJSONEncoder
 
 _ArgsType: TypeAlias = tuple[object, ...] | Mapping[str, object]
 _SysExcInfoType: TypeAlias = (
@@ -64,9 +64,8 @@ class AsyncLogHandler(logging.Handler):
         while True:
             while self.buffer:
                 record = self.buffer.popleft()
-                # Implement your asynchronous I/O operation here
-                print(record)  # Placeholder for actual I/O operation
-            await asyncio.sleep(1)  # Adjust the sleep duration as needed
+                self.emit(record)
+            await asyncio.sleep(0.01)
 
 
 class AsyncLogger(Logger):

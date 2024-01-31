@@ -2,7 +2,9 @@
 import asyncio
 import logging
 import os
+import sys
 from abc import ABC, abstractmethod
+from typing import TextIO
 
 import boto3
 import google.cloud.logging
@@ -65,10 +67,11 @@ class AsyncGoogleCloudLoggingHandler(AsyncLoggingHandler):
         """
         super().__init__()
         self.client = gcp_client
-        self.worker = _Worker(  # pylint: disable=unexpected-keyword-arg, too-many-function-args
-            self.client,
-            self.client.logger("python"),  # type: ignore
-            background_thread=False,
+        self.worker = _Worker(
+            cloud_logger=self.client.logger("python"),
+            grace_period=0.5,
+            max_batch_size=32,
+            max_latency=5,
         )
 
     async def async_emit(self, record: logging.LogRecord):
@@ -79,7 +82,9 @@ class AsyncGoogleCloudLoggingHandler(AsyncLoggingHandler):
             record (logging.LogRecord): The log record to be emitted.
         """
         log_entry = self.format(record)
-        await asyncio.get_event_loop().run_in_executor(None, self.worker.enqueue, log_entry)
+        await asyncio.get_event_loop().run_in_executor(
+            None, lambda: self.worker.enqueue(record, log_entry)
+        )
 
 
 class AsyncAzureMonitorLoggingHandler(AsyncLoggingHandler):
@@ -162,16 +167,33 @@ class AsyncCloudWatchLoggingHandler(AsyncLoggingHandler):
         log_entry = self.format(record)
         log_event = {"timestamp": int(record.created * 1000), "message": log_entry}
 
-        kwargs = {
-            "logGroupName": self.log_group_name,
-            "logStreamName": self.stream_name,
-            "logEvents": [log_event],
-        }
+        def put_log_events():
+            return self.client.put_log_events(
+                logGroupName=self.log_group_name,
+                logStreamName=self.stream_name,
+                logEvents=[log_event],
+                sequenceToken=self.sequence_token if self.sequence_token else None,
+            )
 
-        if self.sequence_token:
-            kwargs["sequenceToken"] = self.sequence_token
-
-        response = await asyncio.get_event_loop().run_in_executor(
-            None, self.client.put_log_events, **kwargs
-        )
+        response = await asyncio.get_event_loop().run_in_executor(None, put_log_events)
         self.sequence_token = response.get("nextSequenceToken")
+
+
+class StreamLoggingHandler(AsyncLoggingHandler):
+    """A handler that writes to stdout or stderr."""
+
+    terminator: str
+
+    def __init__(self, stream: TextIO = sys.stdout, terminator="\n"):
+        super().__init__()
+        if stream is None:
+            stream = sys.stderr
+        self.stream = stream
+        self.terminator = terminator
+
+    async def async_emit(self, record: logging.LogRecord):
+        msg = self.format(record)
+        stream = self.stream
+        stream.write(msg)
+        stream.write(self.terminator)
+        stream.flush()
